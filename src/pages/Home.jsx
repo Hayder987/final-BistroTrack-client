@@ -1,4 +1,5 @@
 import Banner from "../components/homeComponents/Banner";
+import ChefService from "../components/homeComponents/ChefService";
 import SwiperSlider from "../components/homeComponents/SwiperSlider";
 import SectionTitle from "./shared/SectionTitle";
 
@@ -16,7 +17,13 @@ const Home = () => {
         <SwiperSlider></SwiperSlider>
       </div>
       <div className="container mx-auto">
-         
+        <ChefService></ChefService>
+      </div>
+      <div className="container mx-auto mt-4">
+        <SectionTitle
+          subTitle={"Check it out"}
+          title={"FROM OUR MENU"}
+        ></SectionTitle>
       </div>
     </div>
   );
