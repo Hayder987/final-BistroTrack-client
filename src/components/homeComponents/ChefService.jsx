@@ -8,6 +8,7 @@ const ChefService = () => {
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
+        // backgroundAttachment:"fixed"
       }}
       className="min-h-[40vh] p-6 md:p-12 lg:p-16 py-20 lg:py-32 flex justify-center items-center"
     >

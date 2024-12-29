@@ -1,9 +1,22 @@
 import Banner from "../components/homeComponents/Banner";
 import ChefService from "../components/homeComponents/ChefService";
+import MenuSection from "../components/homeComponents/MenuSection";
 import SwiperSlider from "../components/homeComponents/SwiperSlider";
 import SectionTitle from "./shared/SectionTitle";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [menu, setMenu] = useState([])
+
+    useEffect(()=>{
+      axios.get('/public/menu.json')
+      .then(res=>{
+        setMenu(res.data.filter(fil=> fil.category === "popular"))
+      })  
+    },[])
+
+    
   return (
     <div className="">
       <div className="mb-14 md:mb-20">
@@ -24,6 +37,7 @@ const Home = () => {
           subTitle={"Check it out"}
           title={"FROM OUR MENU"}
         ></SectionTitle>
+        <MenuSection menu={menu}></MenuSection>
       </div>
     </div>
   );
