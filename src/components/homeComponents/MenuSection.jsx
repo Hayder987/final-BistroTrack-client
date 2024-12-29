@@ -8,7 +8,9 @@ const MenuSection = ({ menu }) => {
           <MenuCard key={item._id} item={item}></MenuCard>
         ))}
       </div>
-
+      <div className="mt-12 flex justify-center">
+        <button className="btn btn-outline border-0 border-b-4 uppercase">View Full  Menu</button>
+      </div>
     </div>
   );
 };
