@@ -13,7 +13,7 @@ const Testimonial = () => {
   const [review, setReview] = useState([]);
 
   useEffect(() => {
-    axios.get(`/review.json`).then((res) => {
+    axios.get(`${import.meta.env.VITE_ServerUrl}/reviewItem`).then((res) => {
       setReview(res.data);
     });
   }, []);

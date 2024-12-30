@@ -8,11 +8,12 @@ import MenuButton from "./shared/MenuButton";
 import pizaBg from "../assets/menu/pizza-bg.jpg";
 import saladBg from "../assets/menu/salad-bg.jpg";
 import soupBg from "../assets/menu/soup-bg.jpg";
+import { Link } from "react-router";
 
 const Menu = () => {
   const [menu] = useData();
   const offered = menu.filter((fill) => fill.category === "offered");
-  const desert = menu.filter((fill) => fill.category === "dessert");
+  const dessert = menu.filter((fill) => fill.category === "dessert");
   const pizza = menu.filter((fill) => fill.category === "pizza");
   const salad = menu.filter((fill) => fill.category === "salad");
   const soup = menu.filter((fill) => fill.category === "soup");
@@ -34,15 +35,17 @@ const Menu = () => {
         <MenuDisplay items={offered}></MenuDisplay>
         <MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton>
       </div>
+      {/* desert */}
       <div className="mb-20">
         <CoverBanner
           img={desertBg}
           title="DESSERTS"
           subTitle="Desserts are sweet dishes typically served at the end of a meal. "
         ></CoverBanner>
-        <MenuDisplay items={desert}></MenuDisplay>
-        <MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton>
+        <MenuDisplay items={dessert}></MenuDisplay>
+        <Link to='/shop/dessert'><MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton></Link>
       </div>
+      {/* pizza */}
       <div className="mb-20">
         <CoverBanner
           img={pizaBg}
@@ -50,8 +53,9 @@ const Menu = () => {
           subTitle="With tomato sauce, cheese, and various toppings like vegetables, meats, and herbs. "
         ></CoverBanner>
         <MenuDisplay items={pizza}></MenuDisplay>
-        <MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton>
+        <Link to='/shop/pizza'><MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton></Link>
       </div>
+      {/* salad */}
       <div className="mb-20">
         <CoverBanner
           img={saladBg}
@@ -59,8 +63,9 @@ const Menu = () => {
           subTitle="Salad is a healthy dish made by combining raw or cooked vegetables, fruits, and other ingredients  "
         ></CoverBanner>
         <MenuDisplay items={salad}></MenuDisplay>
-        <MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton>
+        <Link to='/shop/salad'><MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton></Link>
       </div>
+      {/* soup */}
       <div className="mb-20">
         <CoverBanner
           img={soupBg}
@@ -68,7 +73,7 @@ const Menu = () => {
           subTitle="Soup is a warm and comforting dish made by combining ingredients such as vegetables, meat, fish "
         ></CoverBanner>
         <MenuDisplay items={soup}></MenuDisplay>
-        <MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton>
+        <Link to='/shop/soup'><MenuButton name="ORDER YOUR FAVOURITE FOOD"></MenuButton></Link>
       </div>
     </div>
   );
