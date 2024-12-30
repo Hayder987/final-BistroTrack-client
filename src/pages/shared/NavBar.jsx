@@ -12,9 +12,10 @@ const NavBar = () => {
               <p className="md:text-2xl font-semibold">Restaurant</p>
             </div>
             {/* menu */}
-            <div className="">
-               <ul>
+            <div >
+               <ul className="flex justify-center items-center gap-10">
                 <NavLink to='/'><li>Home</li></NavLink>
+                <NavLink to='/menu'><li>Our Menu</li></NavLink>
                </ul>
             </div>
             {/* login */}

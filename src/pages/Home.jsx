@@ -5,18 +5,13 @@ import MenuSection from "../components/homeComponents/MenuSection";
 import PhoneSection from "../components/homeComponents/PhoneSection";
 import SwiperSlider from "../components/homeComponents/SwiperSlider";
 import Testimonial from "../components/homeComponents/Testimonial";
+import useData from "../hooks/useData";
 import SectionTitle from "./shared/SectionTitle";
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 
 const Home = () => {
-  const [menu, setMenu] = useState([]);
-
-  useEffect(() => {
-    axios.get("/menu.json").then((res) => {
-      setMenu(res.data.filter((fil) => fil.category === "popular"));
-    });
-  }, []);
+  const [menu] = useData()
+  const popularMenu = menu.filter((fil) => fil.category === "popular")
 
   return (
     <div className="">
@@ -38,7 +33,7 @@ const Home = () => {
           subTitle={"Check it out"}
           title={"FROM OUR MENU"}
         ></SectionTitle>
-        <MenuSection menu={menu}></MenuSection>
+        <MenuSection menu={popularMenu}></MenuSection>
       </div>
       <PhoneSection></PhoneSection>
       <FormMenu></FormMenu>
