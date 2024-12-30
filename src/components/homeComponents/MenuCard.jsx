@@ -11,7 +11,7 @@ const MenuCard = ({item}) => {
           </div>  
           <div className="w-9/12">
             <div className="flex justify-between items-center">
-                <p className="text-xl font-medium mb-2">{item?.name}--------------</p>
+                <p className="text-xl uppercase font-medium mb-2">{item?.name}--------------</p>
                 <p className="font-semibold text-orange-400">${item?.price}</p>
             </div>
             <p className="text-gray-600">{item?.recipe}</p>
