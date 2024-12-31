@@ -1,0 +1,94 @@
+import { useEffect, useState } from "react";
+import { photoUpload } from "../api/utilities";
+
+const RegisterForm = ({setImagePreview}) => {
+  const [img, setImg] = useState(null);
+ 
+
+  useEffect(() => {
+    if (img) {
+      const imageURL = URL.createObjectURL(img);
+      setImagePreview(imageURL);
+      return () => URL.revokeObjectURL(imageURL);
+    }
+  }, [img, setImagePreview]);
+
+  const registerHandler = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const image = form.photo.files[0];
+
+    const imageUrl = await photoUpload(image);
+    console.log(name, email, password, imageUrl);
+  };
+
+  return (
+    <div>
+      <form onSubmit={registerHandler} className="">
+        <div className="flex flex-col gap-4">
+          {/* Name */}
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              className="p-3 rounded-lg outline-orange-400"
+            />
+          </div>
+          {/* email */}
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              className="p-3 rounded-lg outline-orange-400"
+            />
+          </div>
+          {/* password */}
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Password</label>
+            <input
+              type="password"
+              name="password"
+              required
+              className="p-3 rounded-lg outline-orange-400"
+            />
+          </div>
+          {/* photo */}
+          <div className="flex flex-col gap-2 py-5">
+            <label className="font-semibold">
+              <input
+                type="file"
+                name="photo"
+                onChange={(e) => setImg(e.target.files[0])}
+                required
+                accept="images/*"
+                className="hidden w-full h-full"
+              />
+              <div className="p-3 overflow-hidden border-dashed border-2 border-gray-500 cursor-pointer">
+                <p className="text-center bg-orange-500 text-white p-2">
+                  {img ? img.name : "Upload Photo"}
+                </p>
+              </div>
+            </label>
+          </div>
+          <div className="">
+            <button
+              type="submit"
+              className="text-white bg-[#dab883] font-semibold p-3 rounded-lg w-full"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default RegisterForm;

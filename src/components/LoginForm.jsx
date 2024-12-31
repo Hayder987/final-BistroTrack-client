@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -8,24 +10,34 @@ import {
 const LoginForm = () => {
   const [disable, setDisable] = useState(true);
   const [captcha, setCaptcha] = useState("");
+  const [verified, setVeriFied]= useState(false)
 
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
   const validCaptcha = () => {
-    //  const user_captcha_value = captcha;
-    //  console.log(user_captcha_value)
     if (validateCaptcha(captcha)) {
       setDisable(false);
+      setVeriFied(true)
     } else {
       setDisable(true);
+      setVeriFied(false)
     }
   };
 
+const loginHandler =(e)=>{
+    e.preventDefault()
+    const form = e. target
+    const email = form.email.value;
+    const password = form.password.value
+
+    console.log(email, password)
+}
+
   return (
     <div>
-      <form className="">
+      <form onSubmit={loginHandler} className="">
         <div className="flex flex-col gap-4">
           {/* email */}
           <div className="flex flex-col gap-2">
@@ -49,7 +61,7 @@ const LoginForm = () => {
           </div>
           <p className=""></p>
           {/* Captcha */}
-          <div className="flex flex-col gap-2">
+          <div className={`${verified?"hidden":"flex flex-col gap-2"}`}>
             <div className="bg-white p-4 rounded-lg focus:border-orange-400">
               <LoadCanvasTemplate />
             </div>
@@ -80,6 +92,18 @@ const LoginForm = () => {
           </div>
         </div>
       </form>
+      <div className="divider">OR</div>
+      <div className="flex justify-center items-center py-4">
+        <button className="flex justify-center bg-white w-full p-3 rounded-lg items-center gap-3">
+            <span className="text-2xl"><FcGoogle /></span>
+            <span className="">Login With Google</span>
+        </button>
+      </div>
+      <div className="">
+        <p className="text-center font-medium py-3">
+            Don't Have Account? <Link to='/register'><span className="text-blue-600">Register Now</span></Link>
+        </p>
+      </div>
     </div>
   );
 };

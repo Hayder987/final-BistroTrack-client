@@ -12,7 +12,7 @@ const Login = () => {
            <Container>
             <div
             style={{background: `url(${loginBg})`}}
-             className="shadow-xl p-4 md:p-8 lg:p-32 flex gap-10 lg:gap-20 flex-col lg:flex-row">
+             className="shadow-xl p-4 md:p-8 lg:p-14 lg:px-32 flex gap-10 lg:gap-20 flex-col lg:flex-row">
               {/* image */}
               <div className="lg:w-1/2">
                <img src={loginBanner} alt="" className="" />
