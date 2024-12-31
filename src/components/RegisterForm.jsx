@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { photoUpload } from "../api/utilities";
+import { Link } from "react-router";
 
 const RegisterForm = ({setImagePreview}) => {
   const [img, setImg] = useState(null);
@@ -87,6 +88,9 @@ const RegisterForm = ({setImagePreview}) => {
           </div>
         </div>
       </form>
+      <p className="text-center font-medium py-3">
+            Have An Account? <Link to='/login'><span className="text-blue-600">Login Now</span></Link>
+        </p>
     </div>
   );
 };
