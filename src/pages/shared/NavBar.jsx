@@ -56,6 +56,7 @@ const NavBar = () => {
             <div className="flex justify-center border bg-slate-100 border-orange-500 rounded-lg py-1 px-2 items-center gap-3">
               <img
                 src={user?.photoURL}
+                referrerPolicy="no-referrer"
                 alt=""
                 className="w-10 h-10 rounded-full"
               />
