@@ -1,30 +1,82 @@
-import { Link, NavLink } from "react-router";
-
+import { Link, NavLink, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import { FiLogOut } from "react-icons/fi";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
-    return (
-        <div className="py-3 px-4 text-white fixed top-0 left-0 z-10 w-full
+  const { user, logOutUser } = useAuth();
+  const navigate = useNavigate();
+
+  const logOutHandler = async () => {
+    try {
+      await logOutUser();
+    } catch (err) {
+      Swal.fire(`${err}`);
+    } finally {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "User Logout SuccessFully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate("/login");
+    }
+  };
+
+  return (
+    <div
+      className="py-3 px-4 text-white fixed top-0 left-0 z-10 w-full
          bg-black bg-opacity-50 backdrop-blur-sm md:px-12 flex justify-between 
-         items-center ">
-            {/* logo */}
-            <div className="">
-              <h1 className="text-xl md:text-3xl font-bold">BistroTrack</h1>
-              <p className="md:text-2xl font-semibold">Restaurant</p>
+         items-center "
+    >
+      {/* logo */}
+      <div className="">
+        <h1 className="text-xl md:text-3xl font-bold">BistroTrack</h1>
+        <p className="md:text-2xl font-semibold">Restaurant</p>
+      </div>
+      {/* menu */}
+      <div>
+        <ul className="flex justify-center items-center gap-10">
+          <NavLink to="/">
+            <li>Home</li>
+          </NavLink>
+          <NavLink to="/menu">
+            <li> Menu</li>
+          </NavLink>
+          <NavLink to="/shop/salad">
+            <li>Shop</li>
+          </NavLink>
+        </ul>
+      </div>
+      {/* login */}
+      {user?<div className="">
+          {user ? (
+            <div className="flex justify-center border bg-slate-100 border-orange-500 rounded-lg py-1 px-2 items-center gap-3">
+              <img
+                src={user?.photoURL}
+                alt=""
+                className="w-10 h-10 rounded-full"
+              />
+              <button
+                onClick={logOutHandler}
+                className="text-3xl text-gray-800"
+              >
+                <FiLogOut />
+              </button>
             </div>
-            {/* menu */}
-            <div >
-               <ul className="flex justify-center items-center gap-10">
-                <NavLink to='/'><li>Home</li></NavLink>
-                <NavLink to='/menu'><li> Menu</li></NavLink>
-                <NavLink to='/shop/salad'><li>Shop</li></NavLink>
-               </ul>
-            </div>
-            {/* login */}
-            <div className="">
-                <Link to='/login'><button className="bg-orange-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-lg font-semibold">Login</button></Link>
-            </div>
-        </div>
-    );
+          ) : (
+            <Link to="/login">
+              <button className="bg-orange-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-lg font-semibold">
+                Login
+              </button>
+            </Link>
+          )}
+        </div>:
+        <div></div>}
+    </div>
+  );
 };
 
 export default NavBar;

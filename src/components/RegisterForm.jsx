@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { photoUpload } from "../api/utilities";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
+import { TbFidgetSpinner } from "react-icons/tb";
 
-const RegisterForm = ({setImagePreview}) => {
+const RegisterForm = ({ setImagePreview }) => {
   const [img, setImg] = useState(null);
- 
+  const { registerUser, updateUser, loading } = useAuth();
+  const navigate = useNavigate();
+  const [errMessage, setErrMessage] = useState("");
 
   useEffect(() => {
     if (img) {
@@ -23,7 +28,23 @@ const RegisterForm = ({setImagePreview}) => {
     const image = form.photo.files[0];
 
     const imageUrl = await photoUpload(image);
-    console.log(name, email, password, imageUrl);
+
+    try {
+      await registerUser(email, password);
+      await updateUser(name, imageUrl);
+    } catch (err) {
+      Swal.fire(`${err}`);
+    } finally {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "User Registration SuccessFully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate("/");
+    }
   };
 
   return (
@@ -81,16 +102,19 @@ const RegisterForm = ({setImagePreview}) => {
           <div className="">
             <button
               type="submit"
-              className="text-white bg-[#dab883] font-semibold p-3 rounded-lg w-full"
+              className={`text-white  bg-[#dab883] font-semibold p-3 rounded-lg w-full`}
             >
-              Register
+             {loading ? "Creating..." : "Register"}
             </button>
           </div>
         </div>
       </form>
       <p className="text-center font-medium py-3">
-            Have An Account? <Link to='/login'><span className="text-blue-600">Login Now</span></Link>
-        </p>
+        Have An Account?{" "}
+        <Link to="/login">
+          <span className="text-blue-600">Login Now</span>
+        </Link>
+      </p>
     </div>
   );
 };
