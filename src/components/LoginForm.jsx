@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -15,6 +15,9 @@ const LoginForm = () => {
   const [verified, setVeriFied] = useState(false);
   const { loginUser, googleLogin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/';
+  
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -48,7 +51,7 @@ const LoginForm = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/");
+      navigate(from);
     }
   };
 
@@ -65,7 +68,7 @@ const LoginForm = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/");
+      navigate(from);
     }
   };
 

@@ -2,9 +2,10 @@ import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { PiShoppingCartBold } from "react-icons/pi";
 
 const NavBar = () => {
-  const { user, logOutUser } = useAuth();
+  const { user, logOutUser, loading } = useAuth();
   const navigate = useNavigate();
 
   const logOutHandler = async () => {
@@ -48,34 +49,42 @@ const NavBar = () => {
           <NavLink to="/shop/salad">
             <li>Shop</li>
           </NavLink>
+          <NavLink to="/">
+            <li className="flex items-center gap-2"><PiShoppingCartBold className="text-2xl" /> 
+            <span className="bg-slate-100 rounded-full px-3 text-orange-600">0</span></li>
+          </NavLink>
+          <NavLink to="/dashboard">
+            <li>Dashboard</li>
+          </NavLink>
         </ul>
       </div>
       {/* login */}
-      {user?<div className="">
-          {user ? (
-            <div className="flex justify-center border bg-slate-100 border-orange-500 rounded-lg py-1 px-2 items-center gap-3">
-              <img
-                src={user?.photoURL}
-                referrerPolicy="no-referrer"
-                alt=""
-                className="w-10 h-10 rounded-full"
-              />
-              <button
-                onClick={logOutHandler}
-                className="text-3xl text-gray-800"
-              >
-                <FiLogOut />
-              </button>
-            </div>
-          ) : (
-            <Link to="/login">
-              <button className="bg-orange-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-lg font-semibold">
-                Login
-              </button>
-            </Link>
-          )}
-        </div>:
-        <div></div>}
+      {loading?<div></div>:
+      <div className="">
+      {user ? (
+        <div className="flex justify-center border bg-slate-100 border-orange-500 rounded-lg py-1 px-2 items-center gap-3">
+          <img
+            src={user?.photoURL}
+            referrerPolicy="no-referrer"
+            alt=""
+            className="w-10 h-10 rounded-full"
+          />
+          <button
+            onClick={logOutHandler}
+            className="text-3xl text-gray-800"
+          >
+            <FiLogOut />
+          </button>
+        </div>
+      ) : (
+        <Link to="/login">
+          <button className="bg-orange-500 text-white py-2 px-4 md:py-3 md:px-6 rounded-lg font-semibold">
+            Login
+          </button>
+        </Link>
+      )}
+    </div>
+      }
     </div>
   );
 };

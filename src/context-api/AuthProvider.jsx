@@ -10,61 +10,66 @@ import {
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase.config";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const googleProvider = new GoogleAuthProvider()
- 
+  const [loading, setLoading] = useState(true);
+  const googleProvider = new GoogleAuthProvider();
 
-  const registerUser = async(email, password) => {
+  const registerUser = async (email, password) => {
     setLoading(true);
     return await createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUser = async(name, photo) => {
-   return await updateProfile(auth.currentUser, {
+  const updateUser = async (name, photo) => {
+    return await updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photo,
     });
   };
 
-  const loginUser = async(email, password)=>{
-     setLoading(true)
-    return await signInWithEmailAndPassword(auth, email, password)
-  }
+  const loginUser = async (email, password) => {
+    setLoading(true);
+    return await signInWithEmailAndPassword(auth, email, password);
+  };
 
-  const googleLogin = async()=>{
-    setLoading(true)
-    return await signInWithPopup(auth, googleProvider)
-  }
-
-
+  const googleLogin = async () => {
+    setLoading(true);
+    return await signInWithPopup(auth, googleProvider);
+  };
 
   useEffect(() => {
-   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       try {
         setUser(currentUser);
       } catch (err) {
         Swal.fire(`${err}`);
+      } finally {
+        if (currentUser) {
+          const user = {
+            name: currentUser?.displayName,
+            email: currentUser?.email,
+            photo: currentUser?.photoURL,
+          };
+
+          await axios.post(`http://localhost:5000/users`, user);
+        }
+        setLoading(false);
       }
-      finally{
-        setLoading(false)
-       }
     });
 
-    return ()=> unsubscribe()
-
+    return () => unsubscribe();
   }, []);
 
-  const logOutUser = ()=>{
-    setLoading(false)
-    return signOut(auth)
-  }
+  const logOutUser = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
-  console.log(user)
+  console.log(user);
 
   const authInfo = {
     user,
@@ -73,7 +78,7 @@ const AuthProvider = ({ children }) => {
     updateUser,
     logOutUser,
     loginUser,
-    googleLogin
+    googleLogin,
   };
 
   return (
