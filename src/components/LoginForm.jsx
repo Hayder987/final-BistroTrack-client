@@ -39,11 +39,8 @@ const LoginForm = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    try {
-      await loginUser(email, password);
-    } catch (err) {
-      Swal.fire(`${err}`);
-    } finally {
+    await loginUser(email, password)
+    .then(()=>{
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -52,7 +49,11 @@ const LoginForm = () => {
         timer: 1500,
       });
       navigate(from);
-    }
+    })
+    .catch(error=>{
+      Swal.fire(`${error.message}`); 
+    })
+    
   };
 
   const googleLoginUser = async () => {
