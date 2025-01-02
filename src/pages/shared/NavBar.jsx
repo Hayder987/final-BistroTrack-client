@@ -3,10 +3,12 @@ import useAuth from "../../hooks/useAuth";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
 import { PiShoppingCartBold } from "react-icons/pi";
+import useCartData from "../../hooks/useCartData";
 
 const NavBar = () => {
   const { user, logOutUser, loading } = useAuth();
   const navigate = useNavigate();
+  const {cartData} = useCartData()
 
   const logOutHandler = async () => {
     try {
@@ -51,7 +53,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink to="/">
             <li className="flex items-center gap-2"><PiShoppingCartBold className="text-2xl" /> 
-            <span className="bg-slate-100 rounded-full px-3 text-orange-600">0</span></li>
+            <span className="bg-slate-100 rounded-full px-3 text-red-700">{cartData.length}</span></li>
           </NavLink>
           <NavLink to="/dashboard">
             <li>Dashboard</li>
