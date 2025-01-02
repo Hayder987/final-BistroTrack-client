@@ -51,7 +51,7 @@ const NavBar = () => {
           <NavLink to="/shop/salad">
             <li>Shop</li>
           </NavLink>
-          <NavLink to="/">
+          <NavLink to="/dashboard/mycart">
             <li className="flex items-center gap-2"><PiShoppingCartBold className="text-2xl" /> 
             <span className="bg-slate-100 rounded-full px-3 text-red-700">{cartData.length}</span></li>
           </NavLink>

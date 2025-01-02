@@ -10,7 +10,7 @@ const DashBoard = () => {
          <Sidebar></Sidebar>
         </div>
         {/* content Outlet */}
-        <div className="w-full md:w-9/12 bg-slate-50 flex-1 min-h-[100vh] ">
+        <div className="w-full p-6 md:w-9/12 bg-slate-50 flex-1 min-h-[100vh] ">
          <Outlet></Outlet>
         </div>
       </div>

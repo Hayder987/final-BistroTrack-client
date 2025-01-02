@@ -16,7 +16,7 @@ const Sidebar = () => {
           </div> 
           {/* menu */}
           <div className="">
-            <ul className="flex flex-col gap-6">
+            <ul className="flex font-medium flex-col gap-6">
                 <NavLink to="dashboard"><li className="flex items-center gap-2"><span className=""><IoHome /></span> User Home</li></NavLink>
                 <NavLink to="reservation"><li className="flex items-center uppercase gap-2"><span className=""><FaCalendarAlt /></span> Reservation</li></NavLink>
                 <NavLink to="payment"><li className="flex items-center uppercase gap-2"><span className=""><MdPayments/></span> payment history</li></NavLink>
@@ -27,7 +27,7 @@ const Sidebar = () => {
           </div> 
           <div className="border-b-2 border-white my-14 px-4"></div>
           <div className="">
-            <ul className="flex flex-col gap-6">
+            <ul className="flex font-medium flex-col gap-6">
              <NavLink to="/"><li className="flex items-center gap-2 uppercase"><span className=""><IoHome /></span>Home</li></NavLink>
              <NavLink to="/menu"><li className="flex items-center gap-2 uppercase"><span className=""><FaBars /></span>Menu</li></NavLink>
              <NavLink to="/shop/salad"><li className="flex items-center gap-2 uppercase"><span className=""><GiShoppingBag /></span>Shop</li></NavLink>
