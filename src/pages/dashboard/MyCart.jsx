@@ -1,3 +1,4 @@
+import CartTable from "../../components/CartTable";
 import useCartData from "../../hooks/useCartData";
 import SectionTitle from "../shared/SectionTitle";
 
@@ -21,6 +22,9 @@ const MyCart = () => {
         </button>
       </div>
       {/* table */}
+      <div className="">
+        <CartTable></CartTable>
+      </div>
     </div>
   );
 };
